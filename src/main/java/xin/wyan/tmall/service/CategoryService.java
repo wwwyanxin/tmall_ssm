@@ -8,9 +8,9 @@ import java.util.List;
 public interface CategoryService {
     List<Category> list();
 
-    List<Category> list(Page page);
+//    List<Category> list(Page page);
 
-    int total();
+//    int total();
 
     void add(Category category);
 

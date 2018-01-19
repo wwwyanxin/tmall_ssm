@@ -1,23 +1,21 @@
 package xin.wyan.tmall.mapper;
 
-import org.springframework.stereotype.Repository;
-import xin.wyan.tmall.pojo.Category;
-import xin.wyan.tmall.util.Page;
-
 import java.util.List;
+import xin.wyan.tmall.pojo.Category;
+import xin.wyan.tmall.pojo.CategoryExample;
 
 public interface CategoryMapper {
-    public List<Category> list();
+    int deleteByPrimaryKey(Integer id);
 
-    public List<Category> list(Page page);
+    int insert(Category record);
 
-    public int total();
+    int insertSelective(Category record);
 
-    public void add(Category category);
+    List<Category> selectByExample(CategoryExample example);
 
-    public void delete(int id);
+    Category selectByPrimaryKey(Integer id);
 
-    public Category get(int id);
+    int updateByPrimaryKeySelective(Category record);
 
-    public void update(Category category);
+    int updateByPrimaryKey(Category record);
 }
