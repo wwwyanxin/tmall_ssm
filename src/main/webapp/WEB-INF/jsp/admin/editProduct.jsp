@@ -15,7 +15,7 @@
     <script>
         $("#editForm").submit(function () {
             if (!checkEmpty("name", "产品名称") || !checkEmpty("subTitle", "产品小标题")
-                || !checkEmpty("orignalPrice", "原价格") || !checkEmpty("promotePrice", "优惠价格")
+                || !checkEmpty("originalPrice", "原价格") || !checkEmpty("promotePrice", "优惠价格")
                 || !checkEmpty("stock", "库存")) {
                 return false;
             }else {
@@ -56,7 +56,7 @@
                     <tr>
                         <td>原价格</td>
                         <td>
-                            <input id="orignalPrice" name="orignalPrice" value="${p.orignalPrice}" type="text"
+                            <input id="originalPrice" name="originalPrice" value="${p.originalPrice}" type="text"
                                    class="form-control"/>
                         </td>
                     </tr>
