@@ -29,11 +29,11 @@
         $(function () {
 
             $(".addFormSingle").submit(function () {
-                return checkImage("filepathSingle")
+                return checkImage("imageSingle")
             });
 
             $(".addFormDetail").submit(function () {
-                return checkImage("filepathDetail")
+                return checkImage("imageDetail")
             });
         });
     </script>
@@ -67,7 +67,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="file" name="filepath" id="filepathSingle"
+                                            <input type="file" name="image" id="imageSingle"
                                                    accept="image/gif,image/png,image/jpeg,image/jpg,image/bmp">
                                         </td>
                                     </tr>
@@ -126,7 +126,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="file" name="filepath" id="filepathDetail"
+                                            <input type="file" name="image" id="imageDetail"
                                                    accept="image/gif,image/png,image/jpeg,image/jpg,image/bmp">
                                         </td>
                                     </tr>

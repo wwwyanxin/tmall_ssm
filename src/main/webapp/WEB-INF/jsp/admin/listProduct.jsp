@@ -59,9 +59,9 @@
                 <tr>
                     <td>${p.id}</td>
                     <td>
-                        <%--<c:if test="${!empty p.firstProductImage}">
+                        <c:if test="${!empty p.firstProductImage}">
                             <img width="40px" src="img/productSingle/${p.firstProductImage.id}.jpg"
-                        </c:if>--%>
+                        </c:if>
                     </td>
                     <td>${p.name}</td>
                     <td>${p.subTitle}</td>
