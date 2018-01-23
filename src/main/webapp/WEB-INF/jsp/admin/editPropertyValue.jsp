@@ -18,14 +18,14 @@
         $(function () {
             $("input.ptvValue").keyup(function () {
                 var value = $(this).val();
-                var page="admin_product_updatePropertyValue";
+                var page="admin_propertyValue_update";
                 var ptvid = $(this).attr("ptvid");
                 var parentSpan = $(this).parent("span");
                 parentSpan.css("border", "2px solid yellow");
 
                 $.post(
                     page,
-                    {"value":value,"ptvid":ptvid},
+                    {"value":value,"id":ptvid},
                     function (result) {
                         if("success"==result) {
                             parentSpan.css("border", "2px solid green");

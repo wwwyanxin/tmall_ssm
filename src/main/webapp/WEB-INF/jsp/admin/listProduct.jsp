@@ -74,7 +74,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="admin_product_editPropertyValue?id=${p.id}">
+                        <a href="admin_propertyValue_edit?pid=${p.id}">
                             <span class="glyphicon glyphicon-th-list"></span>
                         </a>
                     </td>

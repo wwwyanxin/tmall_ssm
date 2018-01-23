@@ -1,6 +1,9 @@
 package xin.wyan.tmall.pojo;
 
+import xin.wyan.tmall.util.OrderStatus;
+
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private Integer id;
@@ -28,6 +31,60 @@ public class Order {
     private Integer uid;
 
     private String status;
+
+    /**非数据库字段*/
+    private List<OrderItem>orderItems;
+    private User user;
+    private float total;
+    private int totalNumber;
+    private OrderStatus orderStatus;
+
+    public String getStatusDesc(){
+        if (null == orderStatus) {
+            return "未知";
+        }
+        return orderStatus.getStatusOfChinese();
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public int getTotalNumber() {
+        return totalNumber;
+    }
+
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public Integer getId() {
         return id;

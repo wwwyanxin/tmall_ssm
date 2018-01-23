@@ -78,6 +78,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void setCategory(List<Product> ps) {
+        if (ps.isEmpty()) {
+            return;
+        }
         int cid = ps.get(0).getCid();
         Category c = categoryService.get(cid);
         for (Product p : ps) {

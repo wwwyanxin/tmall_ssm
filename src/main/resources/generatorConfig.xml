@@ -56,7 +56,7 @@
         selectByExampleQueryId：这个值将被添加到选择列表中选择通过例子的声明在本表格:“' <值>作为QUERYID”。这可以用于识别查询在DBA在运行时跟踪工具。如果你需使用,你应该指定一个唯一的id为每个不同的查询生成MBG。
         -->
 
-        <table tableName="category" domainObjectName="Category"
+<!--        <table tableName="category" domainObjectName="Category"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -90,13 +90,13 @@
             <property name="useActualColumnNames" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
-
+-->
         <table tableName="propertyValue" domainObjectName="PropertyValue" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
             <property name="my.isgen.usekeys" value="true"/>
             <property name="useActualColumnNames" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
-
+<!--
         <table tableName="review" domainObjectName="Review" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
             <property name="my.isgen.usekeys" value="true"/>
             <property name="useActualColumnNames" value="true"/>
@@ -113,6 +113,6 @@
             <property name="my.isgen.usekeys" value="true"/>
             <property name="useActualColumnNames" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
+        </table>-->
     </context>
 </generatorConfiguration>
