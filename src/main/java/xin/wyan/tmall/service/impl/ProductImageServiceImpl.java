@@ -39,7 +39,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     public List list(int pid, ImageType imageType) {
         ProductImageExample example = new ProductImageExample();
         example.createCriteria().andPidEqualTo(pid).andTypeEqualTo(imageType.getType());
-        example.setOrderByClause("id desc");
+        //example.setOrderByClause("id desc");
         return productImageMapper.selectByExample(example);
     }
 }

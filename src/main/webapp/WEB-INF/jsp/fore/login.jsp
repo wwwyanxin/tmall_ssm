@@ -10,7 +10,7 @@
 <head>
     <title>Tmall登陆</title>
 </head>
-<%@include file="include/header.jsp"%>
-<%@include file="include/loginPage.jsp"%>
-<%@include file="include/footer.jsp"%>
+<%@include file="../include/header.jsp"%>
+<%@include file="../include/loginPage.jsp"%>
+<%@include file="../include/footer.jsp"%>
 </html>

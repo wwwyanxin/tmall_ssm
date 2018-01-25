@@ -7,9 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%@include file="include/header.jsp"%>
-<%@include file="include/top.jsp"%>
-<%@include file="include/search.jsp"%>
-<%@include file="include/searchResultPage.jsp"%>
-<%@include file="include/footer.jsp"%>
+<%@include file="../include/header.jsp"%>
+<%@include file="../include/top.jsp"%>
+<%@include file="../include/search.jsp"%>
+<%@include file="../include/searchResultPage.jsp"%>
+<%@include file="../include/footer.jsp"%>
 </html>

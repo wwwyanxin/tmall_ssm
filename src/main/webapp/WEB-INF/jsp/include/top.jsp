@@ -18,13 +18,13 @@
 
     <c:choose>
         <c:when test="${!empty user}">
-            <a href="../login.jsp">${user.name}</a>
+            <a href="loginPage">${user.name}</a>
             <a href="forelogout">退出</a>
         </c:when>
 
         <c:otherwise >
-            <a href="../login.jsp">请登录</a>
-            <a href="register.jsp">免费注册</a>
+            <a href="loginPage">请登录</a>
+            <a href="registerPage">免费注册</a>
         </c:otherwise>
     </c:choose>
 

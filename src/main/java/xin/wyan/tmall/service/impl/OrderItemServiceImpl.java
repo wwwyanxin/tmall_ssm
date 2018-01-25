@@ -76,6 +76,18 @@ public class OrderItemServiceImpl implements OrderItemService {
         order.setOrderItems(ois);
     }
 
+    @Override
+    public int getSaleCount(int pid) {
+        OrderItemExample example = new OrderItemExample();
+        example.createCriteria().andPidEqualTo(pid);
+        List<OrderItem> orderItems = orderItemMapper.selectByExample(example);
+        int result = 0;
+        for (OrderItem orderItem : orderItems) {
+            result += orderItem.getNumber();
+        }
+        return result;
+    }
+
     public void setProduct(List<OrderItem> ois) {
         for (OrderItem orderItem : ois) {
             setProduct(orderItem);

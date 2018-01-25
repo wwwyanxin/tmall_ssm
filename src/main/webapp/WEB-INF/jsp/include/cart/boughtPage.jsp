@@ -41,7 +41,7 @@
                             $("table.orderListItemTable[oid="+deleteOrderid+"]").hide();
                         }
                         else{
-                            location.href="../../login.jsp";
+                            location.href="loginPage";
                         }
                     }
                 );

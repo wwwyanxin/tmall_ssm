@@ -26,7 +26,7 @@
                             $("tr.cartProductItemTR[oiid="+deleteOrderItemid+"]").hide();
                         }
                         else{
-                            location.href="../../login.jsp";
+                            location.href="loginPage";
                         }
                     }
                 );
@@ -193,7 +193,7 @@
             {"pid":pid,"number":num},
             function(result){
                 if("success"!=result){
-                    location.href="../../login.jsp";
+                    location.href="loginPage";
                 }
             }
         );
