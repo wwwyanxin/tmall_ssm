@@ -16,6 +16,8 @@ public interface ProductService {
 
     List<Product> list(int cid);
 
+    List<Product> search(String keyword);
+
     /**
      * 为分类填充产品集合
      * @param categories
