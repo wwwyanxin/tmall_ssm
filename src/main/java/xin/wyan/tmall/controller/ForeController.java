@@ -11,13 +11,13 @@ import org.springframework.web.util.HtmlUtils;
 import xin.wyan.tmall.pojo.*;
 import xin.wyan.tmall.service.*;
 import xin.wyan.tmall.util.ImageType;
+import xin.wyan.tmall.util.OrderStatus;
 import xin.wyan.tmall.util.ProductComparator;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class ForeController {
@@ -175,7 +175,7 @@ public class ForeController {
     }
 
     @RequestMapping("forebuy")
-    public String buy(Model model, @RequestParam(value = "oiid") String[] oiIds, HttpSession session) {
+    public String buy(Model model, @RequestParam(value = "oiid") String[] oiIds, HttpServletRequest request) {
         List<OrderItem> orderItems = new ArrayList<>();
         float total = 0;
         for (String strId : oiIds) {
@@ -184,7 +184,7 @@ public class ForeController {
             total += orderItem.getProduct().getPromotePrice() * orderItem.getNumber();
             orderItems.add(orderItem);
         }
-        session.setAttribute("ois", orderItems);
+        request.setAttribute("ois", orderItems);
         model.addAttribute("total", total);
         return "fore/buy";
     }
@@ -253,5 +253,111 @@ public class ForeController {
         }
         orderItemService.delete(oiId);
         return "success";
+    }
+
+    @RequestMapping("forecreateOrder")
+    public String createOrder(HttpSession session, @RequestParam(value = "oiid") String[] oiIds, Order order) {
+        User user = (User) session.getAttribute("user");
+        //生成流水号为时间加随机4位数字
+        String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + (int) ((Math.random() * 9 + 1) * 1000);
+        order.setOrderCode(orderCode);
+        order.setCreateDate(new Date());
+        order.setUid(user.getId());
+        order.setStatus(OrderStatus.waitPay.name());
+
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (String strId : oiIds) {
+            int oiId = Integer.parseInt(strId);
+            OrderItem orderItem = orderItemService.get(oiId);
+            orderItems.add(orderItem);
+        }
+        orderService.add(order, orderItems);
+        return "redirect:forealipay?oid=" + order.getId();
+    }
+
+    @RequestMapping("forealipay")
+    public String alipay(Model model, int oid) {
+        float total = orderService.getPriceTotal(oid);
+        model.addAttribute("total", total);
+        return "fore/alipay";
+    }
+
+    @RequestMapping("forepayed")
+    public String payed(Model model, int oid) {
+        Order order = orderService.get(oid);
+        order.setStatus(OrderStatus.waitDelivery.name());
+        order.setPayDate(new Date());
+        orderService.update(order);
+        model.addAttribute("o", order);
+        model.addAttribute("total", orderService.getPriceTotal(oid));
+        return "fore/payed";
+    }
+
+    @RequestMapping("forebought")
+    public String bought(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Order> orders = orderService.list(user.getId(), OrderStatus.delete);
+        orderItemService.fill(orders);
+        model.addAttribute("os", orders);
+        return "fore/bought";
+    }
+
+    @RequestMapping("foreconfirmPay")
+    public String confirmPay(Model model, int oid) {
+        Order order = orderService.get(oid);
+        orderItemService.fill(order);
+        model.addAttribute("o", order);
+        return "fore/confirmPay";
+    }
+
+    @RequestMapping("foreorderConfirmed")
+    public String orderConfirmed(Model model, int oid) {
+        Order order = orderService.get(oid);
+        order.setStatus(OrderStatus.waitReview.name());
+        order.setConfirmDate(new Date());
+        orderService.update(order);
+        return "fore/orderConfirmed";
+    }
+
+    @RequestMapping("foredeleteOrder")
+    @ResponseBody
+    public String deleteOrder(Model model, int oid) {
+        Order order = orderService.get(oid);
+        order.setStatus(OrderStatus.delete.name());
+        orderService.update(order);
+        return "success";
+    }
+
+    @RequestMapping("forereview")
+    public String review(Model model, int oid) {
+        Order order = orderService.get(oid);
+        orderItemService.fill(order);
+        Product product = order.getOrderItems().get(0).getProduct();
+        List<Review> reviews = reviewService.list(product.getId());
+        productService.setSaleAndReviewNumber(product);
+        model.addAttribute("p", product);
+        model.addAttribute("o", order);
+        model.addAttribute("reviews", reviews);
+        return "fore/review";
+    }
+
+    @RequestMapping("foredoReview")
+    public String doReview(Model model, HttpSession session, int oid, int pid, String content) {
+        Order order = orderService.get(oid);
+        order.setStatus(OrderStatus.finish.name());
+        orderService.update(order);
+
+        Product product = productService.get(pid);
+        content = HtmlUtils.htmlEscape(content);
+
+        User user = (User) session.getAttribute("user");
+        Review review = new Review();
+        review.setContent(content);
+        review.setPid(pid);
+        review.setCreateDate(new Date());
+        review.setUid(user.getId());
+        reviewService.add(review);
+        //在reviewPage.jsp中，当参数showonly==true，那么就显示当前产品的所有评价信息
+        return "redirect:forereview?oid=" + oid + "&showOnly=true";
     }
 }
