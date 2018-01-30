@@ -5,6 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PageController {
+    /**
+     * 默认首页控制器
+     */
+    @RequestMapping("/")
+    public String homePage(){
+        return "fore/home";
+    }
+
     @RequestMapping("registerPage")
     public String registerPage() {
         return "fore/register";
